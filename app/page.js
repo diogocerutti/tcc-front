@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { main } from "../db/admin";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
           </Button>
         </Toolbar>
       </AppBar>
+      <Button onClick={console.log(main)}>asd</Button>
     </Box>
   );
 }

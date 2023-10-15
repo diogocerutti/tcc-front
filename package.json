@@ -15,8 +15,10 @@
     "@mui/material": "^5.14.13",
     "@prisma/client": "^5.4.2",
     "next": "13.5.4",
+    "next-auth": "^4.23.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "prisma": "^5.4.2"
