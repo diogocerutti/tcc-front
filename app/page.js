@@ -8,7 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { main } from "../db/admin";
 
-export default function Home() {
+export default async function Home() {
+  const data = await main();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -29,8 +31,19 @@ export default function Home() {
             Login
           </Button>
         </Toolbar>
+        {data.map((admin, index) => {
+          return (
+            <div key={index}>
+              <h2>name: {admin.name}</h2>
+              <h2>username: {admin.username}</h2>
+              <h2>password: {admin.password}</h2>
+              <h2>status: {admin.status}</h2>
+
+              <hr />
+            </div>
+          );
+        })}
       </AppBar>
-      <Button onClick={console.log(main)}>asd</Button>
     </Box>
   );
 }
