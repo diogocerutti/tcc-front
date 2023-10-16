@@ -1,7 +1,9 @@
+import axios from "axios";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "../../../../lib/prisma";
 import { compare } from "bcrypt";
+import { SetCookieOptions } from "next-auth/core/lib/cookie";
 
 export const authOptions = {
   providers: [
