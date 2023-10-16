@@ -6,10 +6,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { main } from "../db/admin";
 
 export default async function Home() {
-  const data = await main();
+  //const data = await main();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -31,7 +30,7 @@ export default async function Home() {
             Login
           </Button>
         </Toolbar>
-        {data.map((admin, index) => {
+        {/*data.map((admin, index) => {
           return (
             <div key={index}>
               <h2>name: {admin.name}</h2>
@@ -42,7 +41,7 @@ export default async function Home() {
               <hr />
             </div>
           );
-        })}
+        })*/}
       </AppBar>
     </Box>
   );
