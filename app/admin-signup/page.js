@@ -1,9 +1,9 @@
-import AdminForm from "../../components/AdminForm";
+import AdminSignUpForm from "../../components/AdminSignUpForm";
 
 export default function AdminSignup() {
   return (
     <>
-      <AdminForm />
+      <AdminSignUpForm />
     </>
   );
 }

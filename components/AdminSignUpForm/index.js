@@ -30,7 +30,7 @@ function Copyright(props) {
   );
 }
 
-export default function AdminForm() {
+export default function AdminSignUpForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

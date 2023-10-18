@@ -20,8 +20,7 @@
     "next": "13.5.4",
     "next-auth": "^4.23.2",
     "react": "^18",
-    "react-dom": "^18",
-    "react-hot-toast": "^2.4.1"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "prisma": "^5.4.2"

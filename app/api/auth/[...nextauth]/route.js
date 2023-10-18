@@ -1,34 +1,25 @@
-import axios from "axios";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "../../../../lib/prisma";
+import { loginAdmin } from "../../admin";
 import { compare } from "bcrypt";
-import { SetCookieOptions } from "next-auth/core/lib/cookie";
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
+      name: "admin",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials ?? {};
-        if (!email || !password) {
+        if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing username or password");
         }
-        const user = await prisma.admin.findUnique({
-          // aaaaaaaaaaaaaaaaaaqui
-          where: {
-            email,
-          },
-        });
+        console.log(
+          loginAdmin(credentials.email, credentials.password).catch(error)
+        );
+
         // if user doesn't exist or password doesn't match
-        if (!user || !(await compare(password, user.password))) {
-          //console.log(!user);
-          throw new Error("Invalid username or password");
-        }
-        return user;
       },
     }),
   ],

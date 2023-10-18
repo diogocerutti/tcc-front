@@ -13,11 +13,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { loginAdmin } from "../../app/api/admin";
 
-export default function UserLoginForm({ type }) {
+export default function AdminLoginForm({ type }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -35,8 +34,8 @@ export default function UserLoginForm({ type }) {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
+        <Typography component="h1" variant="h5" color="black">
+          LOGIN ADMIN
         </Typography>
         <Box
           component="form"
@@ -44,17 +43,16 @@ export default function UserLoginForm({ type }) {
             e.preventDefault();
             setLoading(true);
             if (type === "login") {
-              signIn("credentials", {
-                redirect: false,
-                email: e.currentTarget.email.value,
-                password: e.currentTarget.password.value,
-                // @ts-ignore
-              }).then(({ error }) => {
-                if (error) {
+              loginAdmin(
+                e.currentTarget.email.value,
+                e.currentTarget.password.value
+              ).then((res) => {
+                // ele vai sempre entrar no .then(), mesmo que haja erro (não sei pq)
+                if (res.name === "AxiosError") {
+                  console.log(res.response.data.msg); // mensagem de erro do BACK
                   setLoading(false);
-                  toast(error);
-                  console.log(error);
                 } else {
+                  console.log(res);
                   router.refresh();
                   router.push("/protected");
                 }
@@ -80,10 +78,10 @@ export default function UserLoginForm({ type }) {
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Password"
-            type="password"
             id="password"
+            label="Password"
+            name="password"
+            type="password"
             autoComplete="current-password"
           />
           <FormControlLabel

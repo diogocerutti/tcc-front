@@ -11,3 +11,18 @@ export async function getAllAdmins() {
     return [];
   }
 }
+
+export async function loginAdmin(email, password) {
+  try {
+    const response = await api.post("/admin/login", {
+      email: email,
+      password: password,
+    });
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    // mensagem de erro do back
+    return error;
+  }
+}
