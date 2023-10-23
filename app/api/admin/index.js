@@ -12,12 +12,20 @@ export async function getAllAdmins() {
   }
 }
 
-export async function loginAdmin(email, password) {
+export async function loginAdmin(request) {
+  const body = await request;
+
+  const { email, password } = body;
+
   try {
-    const response = await api.post("/admin/login", {
-      email: email,
-      password: password,
-    });
+    const response = await api.post(
+      "/admin/login",
+      {
+        email: email,
+        password: password,
+      },
+      { withCredentials: true }
+    );
     if (response.status === 200) {
       return response.data;
     }

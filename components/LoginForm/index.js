@@ -15,7 +15,6 @@ import Container from "@mui/material/Container";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 
 export default function UserLoginForm({ type }) {
   const [loading, setLoading] = useState(false);

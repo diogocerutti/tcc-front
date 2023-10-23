@@ -14,11 +14,36 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginAdmin } from "../../app/api/admin";
+import { loginAdmin } from "../../app/api/admin/index.js";
 
 export default function AdminLoginForm({ type }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const handleSubmit = (event) => {
+    if (type === "login") {
+      event.preventDefault();
+
+      const payload = {
+        email: event.currentTarget.email.value,
+        password: event.currentTarget.password.value,
+      };
+
+      loginAdmin(payload).then((res) => {
+        // ele vai sempre entrar no .then(), mesmo que haja erro (não sei pq)
+        if (res.name === "AxiosError") {
+          console.log("DEU ERRO!", res.response.data.msg); // mensagem de erro do BACK
+          setLoading(false);
+        } else {
+          console.log("DEU CERTO!", res);
+          //router.refresh();
+          //router.push("/protected");
+        }
+      });
+    } else {
+      console.log("register!!");
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs" sx={{ backgroundColor: "white" }}>
@@ -37,33 +62,7 @@ export default function AdminLoginForm({ type }) {
         <Typography component="h1" variant="h5" color="black">
           LOGIN ADMIN
         </Typography>
-        <Box
-          component="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setLoading(true);
-            if (type === "login") {
-              loginAdmin(
-                e.currentTarget.email.value,
-                e.currentTarget.password.value
-              ).then((res) => {
-                // ele vai sempre entrar no .then(), mesmo que haja erro (não sei pq)
-                if (res.name === "AxiosError") {
-                  console.log(res.response.data.msg); // mensagem de erro do BACK
-                  setLoading(false);
-                } else {
-                  console.log(res);
-                  router.refresh();
-                  router.push("/protected");
-                }
-              });
-            } else {
-              console.log("register!!!");
-            }
-          }}
-          noValidate
-          sx={{ mt: 1 }}
-        >
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
